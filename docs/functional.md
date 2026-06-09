@@ -1,242 +1,196 @@
-# 1. Présentation du projet
+# DIAg – Spécification Fonctionnelle
 
-## 1.1 Objectif
-Développer une plateforme SaaS d’évaluation de la maturité en Intelligence Artificielle (IA) destinée aux entreprises et aux cabinets de conseil.
+## 1. Vision et objectifs
+DIAg est une plateforme SaaS d’évaluation de la maturité en Intelligence Artificielle (IA) destinée aux entreprises et aux cabinets de conseil.
 
-L’outil permet :
-- D’évaluer le niveau de maturité IA d’une organisation.
-- D’identifier les points forts et axes d’amélioration.
-- De générer automatiquement des recommandations explicables.
-- De produire une feuille de route priorisée et personnalisée.
-- De comparer les résultats à des benchmarks sectoriels.
-
-L’outil doit être perçu comme un diagnostic neutre et crédible, tout en constituant un levier d’accélération commerciale pour les consultants.
+Objectifs :
+- Évaluer le niveau de maturité IA d’une organisation via un référentiel structuré.
+- Fournir un scoring global et détaillé par dimension.
+- Générer des recommandations personnalisées et une roadmap priorisée.
+- Permettre un benchmark sectoriel anonymisé.
+- Suivre l’évolution de la maturité dans le temps.
 
 ---
 
-# 2. Cibles et utilisateurs
-
-## 2.1 Organisations cibles
+## 2. Utilisateurs cibles
 - PME
 - ETI
 - Grands groupes
-- Tous secteurs d’activité
-
-## 2.2 Profils utilisateurs
-- **Super Administrateur (plateforme)**
-- **Administrateur entreprise**
-- **Consultant (multi-entreprises)**
-- **Évaluateur**
-- **Lecteur / Direction**
-
-La plateforme est multi-entreprises et permet à un consultant de gérer plusieurs clients.
+- Cabinets de conseil / consultants IA
+- Directions générales
+- Directions de la transformation digitale
+- DSI / CTO / équipes IT
+- Responsables Innovation et Data
 
 ---
 
-# 3. Modèle de maturité IA
+## 3. Modèle d’utilisation
 
-## 3.1 Dimensions d’évaluation
-Le référentiel intégré comprend les dimensions suivantes :
-- Stratégie et vision IA
-- Gouvernance et conformité
-- Données et qualité des données
-- Infrastructure et technologies
-- Cas d’usage et automatisation
-- Compétences et culture IA
-- Sécurité et gestion des risques
-- Pilotage et mesure de la valeur
+### 3.1 Modes d’évaluation
+- Auto-évaluation autonome.
+- Évaluation accompagnée par un consultant.
+- Un consultant peut gérer plusieurs clients et plusieurs diagnostics.
 
-## 3.2 Niveaux de maturité
-Chaque dimension est évaluée sur 5 niveaux :
-1. Initial
-2. Émergent
-3. Structuré
-4. Avancé
-5. Optimisé
-
-## 3.3 Pondérations
-- Le score global repose sur une pondération des dimensions.
-- Une pondération par défaut est définie dans le référentiel.
-- Les consultants peuvent personnaliser les pondérations.
-- Certaines questions sont critiques et ont un poids supérieur.
-- Les dimensions « Gouvernance », « Données » et « Cas d’usage » ont un impact plus important sur le score final.
+### 3.2 Multi-organisation
+- Multi-tenant natif.
+- Gestion de groupes et filiales.
+- Historique complet des évaluations.
+- Comparaison temporelle des résultats.
 
 ---
 
-# 4. Format d’évaluation
+## 4. Référentiel de maturité
 
-## 4.1 Questionnaire structuré
-Types de questions :
-- Échelle de maturité (1 à 5)
-- Choix multiples
-- Oui / Non
-- Réponses textuelles facultatives
-
-## 4.2 Version avancée
-- Import de documents
-- Analyse documentaire assistée par IA
-- Interviews guidées
-
----
-
-# 5. Parcours d’évaluation
-
-## 5.1 Modes disponibles
-### Mode individuel
-Une seule personne complète l’évaluation.
-
-### Mode collaboratif
-Participants multiples par dimension (Direction, DSI, RH, Métiers, Innovation).
-
-Workflow :
-1. Création de l’évaluation
-2. Invitation des participants
-3. Réponses individuelles
-4. Consolidation
-5. Validation finale
-6. Génération du rapport
-
-La génération du rapport définitif nécessite validation par le responsable.
-
----
-
-# 6. Scoring et logique métier
-
-## 6.1 Scoring
-- Moteur déterministe basé sur le référentiel.
-- Pondération des dimensions.
-- Pondération spécifique des questions critiques.
-- Score global + score par dimension.
-
-## 6.2 Explicabilité
-Chaque recommandation doit afficher :
-- La dimension concernée
-- Les réponses ayant conduit à la recommandation
-- Le niveau constaté
-- L’objectif cible
-- La justification
-
----
-
-# 7. Recommandations et IA
-
-## 7.1 Architecture hybride
-- Moteur de règles → scoring et recommandations de base
-- LLM → enrichissement contextuel métier et sectoriel
-
-Le moteur déterministe reste prioritaire pour garantir cohérence et auditabilité.
-
-## 7.2 Fonctionnalités IA
-- Analyse intelligente des réponses
-- Génération de recommandations personnalisées
-- Génération de plans d’action
-- Analyse documentaire
-- Résumé exécutif automatique
-- Détection d’écarts de maturité
-- Suggestions de cas d’usage IA
-
-Mode IA désactivable pour clients sensibles.
-
----
-
-# 8. Roadmap priorisée
-
-## 8.1 Critères de priorisation
-- Impact métier estimé
-- Effort de mise en œuvre
-- Niveau de maturité actuel
-- Dépendances
-- Potentiel de création de valeur
-- Identification des quick wins
-
-Chaque action reçoit :
-- Score d’impact
-- Score d’effort
-- Niveau de priorité
-
-## 8.2 Paramètres ajustables
-- Budget disponible
-- Capacité interne
-- Horizon temporel (3, 6, 12, 24 mois)
-
-La roadmap est recalculée dynamiquement.
-
----
-
-# 9. Restitution des résultats
-
-À la fin de l’évaluation :
-- Score global
-- Score par dimension
-- Radar chart
-- Analyse des écarts
-- Recommandations priorisées
-- Roadmap
-- Rapport PDF téléchargeable
-
----
-
-# 10. Benchmark
-
-## 10.1 Comparaisons disponibles
-- Par secteur
-- Par taille d’entreprise
-- Par région / pays
-
-## 10.2 Conditions
-- Minimum 30 entreprises par segment
-- Données agrégées et anonymisées
-- Aucune réidentification possible
-- Conformité RGPD
-
----
-
-# 11. Référentiel administrable
-
-Back-office permettant :
-- Gestion des dimensions
+### 4.1 Référentiel administrable
+Administrable via un back-office par les administrateurs plateforme :
+- Dimensions
 - Sous-dimensions
 - Questions
+- Types de réponses
 - Pondérations
-- Niveaux
-- Recommandations
+- Niveaux de maturité
+- Recommandations associées
 
-## 11.1 Versioning
-- Référentiel versionné (ex : 2026, 2027)
-- Versions personnalisées possibles
-- Les évaluations restent rattachées à leur version d’origine
+### 4.2 Versioning
+- Gestion de versions (ex : Référentiel 2026, 2027).
+- Référentiels personnalisés possibles.
+- Chaque évaluation est liée à sa version de référentiel.
+- Garantit la cohérence historique.
+
+### 4.3 Axes couverts
+- Stratégie IA
+- Gouvernance
+- Données et qualité des données
+- Infrastructure technologique
+- Cas d’usage IA
+- Culture et compétences
+- Sécurité et gestion des risques
+- Conformité et réglementation
+- Industrialisation et MLOps
+- Mesure de la valeur et ROI
 
 ---
 
-# 12. Modèle économique
+## 5. Processus d’évaluation
 
-SaaS par abonnement :
-- Version gratuite (diagnostic simplifié)
-- Version Premium (rapport détaillé + recommandations)
-- Offre Consultant (multi-clients)
-- Offre Entreprise (multi-utilisateurs)
+### 5.1 Questionnaire
+- Questionnaire structuré.
+- Scoring automatique.
+- Pondération des dimensions et des questions.
+- Questions critiques à fort impact.
+- Évaluation individuelle ou collaborative.
+
+### 5.2 Consolidation collaborative
+- Agrégation des réponses par question.
+- Moyenne pondérée possible selon le rôle.
+- Pondérations configurables par profil.
+
+### 5.3 Workflow
+1. Brouillon
+2. En cours
+3. Soumis
+4. En validation
+5. Validé
+6. Clôturé
+
+Seule une évaluation validée peut générer un rapport officiel.
 
 ---
 
-# 13. Indicateurs de performance (KPIs)
+## 6. Scoring et résultats
 
-## Adoption
-- Nombre d’entreprises inscrites
-- Nombre d’évaluations lancées
-- Nombre d’évaluations terminées
+### 6.1 Calcul des scores
+- Score par dimension.
+- Score global basé sur agrégation pondérée.
+- Logique explicable et traçable.
 
-## Engagement
-- Temps moyen de complétion
-- Taux de complétion
-- Nombre de réévaluations
+### 6.2 Livrables
+- Score global de maturité IA.
+- Scores détaillés par dimension.
+- Radar chart.
+- Benchmark sectoriel.
+- Rapport PDF détaillé.
+- Recommandations personnalisées.
+- Roadmap priorisée.
+- Comparaison avec évaluations précédentes.
 
-## Business
-- Conversion gratuit → premium
-- MRR
-- Nombre de consultants actifs
-- Nombre d’entreprises par consultant
+---
 
-## Valeur délivrée
-- Nombre de roadmaps générées
-- Recommandations appliquées
-- Évolution du score dans le temps
+## 7. Benchmark sectoriel
+
+### 7.1 Source des données
+- Basé exclusivement sur les données agrégées anonymisées de la plateforme.
+
+### 7.2 Segmentation
+Comparaison par :
+- Secteur d’activité
+- Taille d’entreprise
+- Zone géographique
+- Référentiel utilisé
+
+### 7.3 Règles
+- Minimum 30 entreprises par segment.
+- Anonymisation obligatoire.
+- Aucune donnée individuelle visible.
+
+---
+
+## 8. Gestion documentaire
+
+### 8.1 Upload
+- Formats : PDF, DOCX, XLSX, PPTX
+- Taille maximale : 100 Mo par document
+
+### 8.2 Usages
+- Consultation ultérieure
+- Historisation
+- Analyse IA
+- Réévaluation
+
+### 8.3 Évolutions prévues
+- Indexation documentaire
+- Recherche sémantique
+- Architecture RAG par tenant
+
+---
+
+## 9. Internationalisation
+- V1 multilingue : Français, Anglais.
+- Architecture prête pour : Arabe, Espagnol, Allemand.
+- Rapports PDF générés dans la langue sélectionnée.
+
+---
+
+## 10. Rôles et permissions
+- Super Administrateur plateforme
+- Administrateur organisation
+- Consultant
+- Évaluateur
+- Lecteur / Direction
+
+Gestion granulaire des permissions.
+
+---
+
+## 11. IA et recommandations
+
+### 11.1 Fonctions IA
+- Génération de recommandations personnalisées.
+- Analyse documentaire.
+
+### 11.2 Mode IA désactivable
+- Paramétrable par tenant.
+- Aucun appel externe si désactivé.
+- Recommandations générées uniquement via moteur de règles.
+
+### 11.3 Traçabilité
+Chaque exécution conserve :
+- Provider utilisé
+- Version du modèle
+- Prompt système
+- Prompt utilisateur
+- Réponse générée
+- Horodatage
+- Coût estimé
+
+---

@@ -1,124 +1,151 @@
-# 1. Architecture générale
+# Spécification Technique
 
-## 1.1 Type d’application
-Application SaaS accessible via navigateur.
+## 1. Architecture générale
 
-## 1.2 Stack technique
-- Frontend : React + TypeScript
-- Backend : Laravel (API REST)
-- Base de données : PostgreSQL
-- Hébergement : AWS
-- Stockage fichiers : Amazon S3
+### 1.1 Type d’architecture
+- SaaS multi-tenant.
+- Monolithe modulaire Laravel (API REST).
+- Frontend React + TypeScript.
+- API documentée via OpenAPI.
+- Infrastructure conteneurisée.
 
-Architecture orientée API avec séparation claire Frontend / Backend.
+### 1.2 Modules applicatifs
+- Authentification
+- Gestion organisations
+- Référentiel
+- Évaluations
+- Benchmark
+- Reporting
+- IA
+- Administration
 
----
-
-# 2. Architecture fonctionnelle
-
-## 2.1 Modules principaux
-- Gestion des organisations (multi-entreprises)
-- Gestion des utilisateurs et rôles
-- Moteur d’évaluation
-- Moteur de scoring déterministe
-- Moteur de recommandations (règles)
-- Module IA (LLM)
-- Générateur de roadmap dynamique
-- Module benchmark
-- Génération de rapports PDF
-- Back-office d’administration du référentiel
-- Module de versioning
+Traitements asynchrones via SQS et Laravel Queues.
 
 ---
 
-# 3. Moteur de scoring
+## 2. Multi-tenancy
 
-## 3.1 Caractéristiques
-- Déterministe
-- Pondération configurable
-- Support des questions critiques
-- Pondérations personnalisables par consultant
-- Support du versioning du référentiel
+### 2.1 Modes supportés
+1. Shared Tenant (base partagée, isolation logique via tenant_id).
+2. Dedicated Database (PostgreSQL dédiée).
+3. Dedicated Infrastructure (AWS dédiée).
 
-## 3.2 Traçabilité
-- Stockage des réponses brutes
-- Stockage des pondérations appliquées
-- Conservation de la version du référentiel
-- Journalisation des calculs
+Objectif : permettre ces trois niveaux sans modification applicative majeure.
 
 ---
 
-# 4. Architecture IA
+## 3. Stack technique
 
-## 4.1 Approche hybride
-1. Moteur de règles interne (Laravel)
-2. Appels à un LLM externe pour enrichissement
+### 3.1 Frontend
+- React + TypeScript
+- Distribution via CloudFront
 
-Le scoring et les conclusions principales ne dépendent pas du LLM.
+### 3.2 Backend
+- Laravel API
+- Déploiement sur AWS ECS Fargate
 
-## 4.2 Exigences IA
-- Mode IA activable / désactivable par client
-- Aucune utilisation des données pour entraîner des modèles tiers
-- Préférence pour traitement dans l’UE
-- Journalisation complète des appels IA
+### 3.3 Base de données
+- Amazon RDS PostgreSQL Multi-AZ
 
-## 4.3 Auditabilité
-- Conservation des prompts
-- Conservation des réponses générées
-- Traçabilité des recommandations enrichies
+### 3.4 Stockage documentaire
+- Amazon S3
 
----
+### 3.5 Messaging
+- Amazon SQS
+- Laravel Queues
 
-# 5. Roadmap dynamique
+### 3.6 Emails
+- Amazon SES
 
-- Algorithme de priorisation basé sur impact, effort, maturité, dépendances
-- Recalcul dynamique selon budget, capacité et horizon temporel
-- Stockage des paramètres utilisés pour traçabilité
+### 3.7 Secrets
+- AWS Secrets Manager
 
----
+### 3.8 Logs et recherche
+- CloudWatch
+- OpenSearch
 
-# 6. Benchmark
-
-## 6.1 Calcul
-- Agrégation statistique par segment
-- Seuil minimal : 30 entreprises
-
-## 6.2 Sécurité
-- Données anonymisées
-- Aucune exposition de données individuelles
-- Conformité RGPD
+### 3.9 Sauvegardes
+- AWS Backup
 
 ---
 
-# 7. Sécurité et conformité
-
-- Authentification sécurisée
-- Gestion des rôles et permissions
-- Journalisation des actions utilisateurs
-- Sauvegardes automatiques
-- Isolation logique des données multi-entreprises
-- Conformité RGPD
+## 4. Environnements & CI/CD
+- Environnements : Development, Staging, Production
+- CI/CD via GitHub Actions
+- Déploiement automatisé sur AWS
+- Contrôles qualité et sécurité intégrés au pipeline
 
 ---
 
-# 8. Gestion documentaire
+## 5. Sécurité & conformité
 
-- Upload vers S3
-- Stockage sécurisé
-- Analyse documentaire via module IA (si activé)
+### 5.1 Conformité
+- RGPD
+- Alignement objectif ISO 27001
+
+### 5.2 Protection des données
+- Chiffrement au repos et en transit
+- Anonymisation des données envoyées aux LLM
+- Filtrage automatique des données personnelles
+- Droit à l’oubli
+- Gestion des consentements
+
+### 5.3 Authentification
+- Email / mot de passe
+- MFA
+- SSO : Azure AD / Entra ID, Google Workspace, Okta, SAML 2.0
+
+### 5.4 Audit
+- Journalisation complète
+- Audit trail des actions utilisateurs
+- Historique des décisions IA
+- Export CSV et PDF
 
 ---
 
-# 9. Versioning
+## 6. IA & abstraction LLM
 
-- Versionnement du référentiel
-- Association stricte évaluation ↔ version
-- Maintien des historiques
+### 6.1 Providers supportés
+- Azure OpenAI (principal)
+- Mistral
+- Anthropic
+- OpenAI
+
+### 6.2 Couche d’abstraction
+- Abstraction obligatoire.
+- Possibilité de changer de fournisseur sans modification métier.
+
+### 6.3 Journalisation IA
+- Provider
+- Version modèle
+- Prompts
+- Réponse
+- Horodatage
+- Coût estimé
 
 ---
 
-# 10. Scalabilité
+## 7. Performance & SLA
 
-- Hébergement AWS
-- Architecture compatible montée en charge SaaS
-- Séparation stockage applicatif / stockage fichiers
+### 7.1 SLA cible
+- 99,9 %
+
+### 7.2 Objectifs de performance
+- Dashboard < 2 secondes
+- Questionnaire < 1 seconde
+- Rapport standard < 30 secondes
+- Rapport enrichi IA < 60 secondes
+
+### 7.3 Monitoring
+- CloudWatch
+- OpenSearch
+- Évolution possible vers Datadog
+
+---
+
+## 8. Internationalisation technique
+- Architecture i18n prête.
+- Contenus traduisibles (UI + référentiel).
+- Génération PDF multi-langue.
+
+---
